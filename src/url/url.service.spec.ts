@@ -28,4 +28,15 @@ describe('UrlService', () => {
     expect(stats.visits).toBe(1);
     expect(stats.longUrl).toContain('https://');
   });
+
+  it('should return all encoded URLs in list', () => {
+    service.encode('https://test1.com');
+    service.encode('https://test2.com');
+    const list = service.list();
+    expect(Object.keys(list).length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('should throw when decoding unknown short code', () => {
+    expect(() => service.decode('fakeCode')).toThrow();
+  });
 });

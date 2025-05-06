@@ -9,15 +9,19 @@ import {
 } from '@nestjs/common';
 import { UrlService } from './url.service';
 import { Response } from 'express';
+import { ConfigService } from '@nestjs/config';
 
 @Controller()
 export class UrlController {
-  constructor(private readonly urlService: UrlService) {}
+  constructor(
+    private readonly urlService: UrlService,
+    private config: ConfigService,
+  ) {}
 
   @Post('api/encode')
   encode(@Body('url') longUrl: string) {
     const code = this.urlService.encode(longUrl);
-    return { shortUrl: `http://localhost:3001/${code}` };
+    return { shortUrl: `${this.config.get('APP_DOMAIN')}/${code}` };
   }
 
   @Post('api/decode')

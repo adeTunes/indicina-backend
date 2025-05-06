@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { nanoid } from 'nanoid';
 import { UrlEntry } from './interfaces/url-entry.interface';
+
+const { nanoid } = require('nanoid');
 
 @Injectable()
 export class UrlService {
