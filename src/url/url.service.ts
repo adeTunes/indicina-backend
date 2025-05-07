@@ -1,11 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UrlEntry } from './interfaces/url-entry.interface';
+import { ConfigService } from '@nestjs/config';
 
 const { nanoid } = require('nanoid');
 
 @Injectable()
 export class UrlService {
   private urlStore: Record<string, UrlEntry> = {};
+  constructor(private config: ConfigService) {}
 
   encode(longUrl: string): string {
     const code = nanoid(6);
@@ -17,7 +19,13 @@ export class UrlService {
     return code;
   }
 
-  decode(code: string): string {
+  getCode(shortUrl: string): string {
+    const code = shortUrl.replace(`${this.config.get('APP_DOMAIN')}/`, '');
+    return code;
+  }
+
+  decode(shortUrl: string): string {
+    const code = this.getCode(shortUrl);
     const entry = this.urlStore[code];
     if (!entry) throw new NotFoundException('URL not found');
     entry.visits++;

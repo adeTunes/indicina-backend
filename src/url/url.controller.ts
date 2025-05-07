@@ -25,7 +25,7 @@ export class UrlController {
   }
 
   @Post('api/decode')
-  decode(@Body('code') code: string) {
+  decode(@Body('shortUrl') code: string) {
     const longUrl = this.urlService.decode(code);
     return { longUrl };
   }

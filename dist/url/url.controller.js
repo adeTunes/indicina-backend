@@ -55,7 +55,7 @@ __decorate([
 ], UrlController.prototype, "encode", null);
 __decorate([
     (0, common_1.Post)('api/decode'),
-    __param(0, (0, common_1.Body)('code')),
+    __param(0, (0, common_1.Body)('shortUrl')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
